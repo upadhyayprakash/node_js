@@ -111,10 +111,38 @@ exports.subtract = (a, b) => a - b;
 - Check the `math-esm.mjs` and `main.mjs` module JS file for ES6 module patterns.
 
 ### Watch Mode in Node.js
-- You can run the Node.js program with `--watch` flag to enable auto-reload when saving changes in the file or its dependencies.
+- You can run the Node.js program with `--watch` flag to enable watch mode and auto-reload when saving changes in the file or its dependencies.
 ```sh
 node --watch index.js
 ```
+
+## Build-in Modules
+- Eg. `path`, `events`, `fs`, `stream`, `http` etc.
+
+### `path` module
+- Utility to work with file and directory path.
+- Methods: basename, extensionName, parse, format, isAbsolute, `join()`, resolve() methods.
+- `join()` method returns the **normalized** path based on input params.
+- `resolve()` method returns an **absolute** path based on input params.
+
+### Callback Pattern
+- In JavaScript, a function is a first-class citizen, i.e. it can be passed as arguments and returned from functions.
+- A function passed as a param to another function is called a "Callback function"
+- `Synchronous` callback eg. are, Array.map(), Array.sort(), Array.filter() etc.
+- `Asynchronous` callback eg.
+```js
+document.addEventListener("click", callback)
+```
+ or 
+```js
+$.get("URL", (data) => {
+  console.log(data);
+})
+```
+
+### Events
+- Action or Occurence that can be responded.
+- 
 
 ## Glossary
 - JavaScript
@@ -124,3 +152,5 @@ node --watch index.js
 - JS Engine
 - JS Runtime
 - REPL (Read-Evaluate-Print-Loop)
+- IIFE (Immediately Invoked Function Expression)
+- ESM
