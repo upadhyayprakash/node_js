@@ -92,6 +92,10 @@ function greetMorning(fn, name) { // Higher order function
 greetMorning(greet, "Prakash"); // 'function' passed as param
 */
 
+/**
+ * 'events' module with 'EventEmitter' class
+ */
+/*
 const EventEmitter = require("node:events"); // exports a class 'EventEmitter' with emit event and respond events features.
 const emitter = new EventEmitter();
 
@@ -104,3 +108,18 @@ emitter.on("order-pizza", (size) => { // event handler
 })
 
 emitter.emit("order-pizza", "large", "mushroom"); // dispatching event
+*/
+
+const PizzaShop = require("./pizza-shop");
+const DrinkMachine = require("./drink-machine");
+
+const pizzaShop = new PizzaShop();
+const drinkMachine = new DrinkMachine();
+
+pizzaShop.on("order", (size, topping) => {
+    console.log("Order Received:", size, topping);
+    drinkMachine.serveDrink(size);
+})
+
+pizzaShop.order("large", "mushroom");
+pizzaShop.displayOrderNumber();

@@ -142,7 +142,9 @@ $.get("URL", (data) => {
 
 ### Events
 - Action or Occurence that can be responded.
-- 
+- `node:events` module exports `EventEmitter` class with methods such as `on()`, `emit()` etc. that helps dispatch custom events and handle them.
+- Check the `pizza-shop.js` file for example.
+- Other built-in modules such `fs`, `stream` and `http` also rely heavily on `events` module for their event-driven patterns.
 
 ## Glossary
 - JavaScript
