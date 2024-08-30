@@ -194,6 +194,29 @@ $.get("URL", (data) => {
   fileRead(); // call async module or directly use 'await' statement when inside '.mjs' module file.
   ```
 
+### Streams
+- `Stream` allows us to work with chunks of data, rather than large amount of data.
+- Types of streams,
+  - Readable Stream (Read from file)
+  - Writable Stream (Write to file)
+  - Duplex Stream (Socket)
+  - Transform Stream (eg. Compress/Decompress a file)
+
+### Pipe
+- Another way to `read` and `write` is using the `pipe()` method on `ReadStream` object.
+  ```js
+  // declare read stream
+  // declare write stream
+  readStream.pipe(writeStream);
+  ```
+- We can also chain the response of `pipe()` method, provided it's not a **writeStream**.
+  ```js
+  const zlib = require("node:zlib");
+  const gzip = zlib.createGzip();
+  readStream.pipe(gzip).pipe(fs.WriteStream("./file2.txt.gz"));
+  ```
+
+
 ## Glossary
 - JavaScript
 - ECMAScript

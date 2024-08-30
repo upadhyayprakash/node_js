@@ -14,7 +14,6 @@ require('./batman')
 require('./superman')
 */
 
-
 /**
  * Module Caching Example
  */
@@ -198,3 +197,31 @@ console.log("second"); // printed before file content, as 'readFile()' is asynch
 fileRead();
 */
 
+/**
+ * Streams in 'fs' module
+ */
+const fs = require("node:fs");
+const readStream = fs.createReadStream("./file.txt", {
+  encoding: "utf-8",
+  highWaterMark: 2,
+});
+const writeStream = fs.createWriteStream("./file2.txt");
+
+/**
+ * Using 'data' event
+ */
+/*
+readStream.on("data", async (chunk) => {
+  console.log(chunk);
+  writeStream.write(chunk);
+});
+*/
+
+// OR
+
+/**
+ * Using 'pipe()' method
+ */
+/*
+readStream.pipe(writeStream);
+*/
