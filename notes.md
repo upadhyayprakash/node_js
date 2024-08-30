@@ -146,6 +146,54 @@ $.get("URL", (data) => {
 - Check the `pizza-shop.js` file for example.
 - Other built-in modules such `fs`, `stream` and `http` also rely heavily on `events` module for their event-driven patterns.
 
+> #### Character Set and Encoding
+> - ASCII or Unicode is a character set, i.e. characters along with their numeric code.
+> - UTF-8 is character encoding i.e. 8 bits (1 Byte) for storing each character. Eg. 4 will be stored as `00000100`.
+
+> #### Stream & Buffers
+> - **Stream** is a sequence of data moving from System A to System B.
+> - **Buffer** is a temporary area where the data is kept before it can be processed.
+
+### Asynchronous JavaScript
+- JavaScript itself is `synchronous`, `blocking` and `single threaded`(main thread).
+- Hence, it uses other APIs (eg. Browser APIs or NodeJS) to carry out Async tasks, such as network request, file read, user click events etc.
+- With those APIs we can register a `function` to be executed later, asynchronously, based on certain events.
+
+### `fs` module
+- `fs` module has built-in methods to read/write file contents.
+- It uses `Buffer` module internally.
+- Methods:
+
+  - `readFileSync(path, encoding)` Eg. for reading 'config' files
+  - `readFile(path, encoding, callback)` with 'error-first' callback function
+  - `writeFileSync(path, content, options)` with optional {flag: "a"} for appending content instead of overwriting
+  - `writeFile(path, content, options, callback)`
+
+- There's a `Promise()` based and `async/await` based version of `fs` module.
+  ```js
+  // index.js
+  const fs = require("node:fs/promises");
+  fs.readFile("./file.txt", "utf-8")
+  .then((data) => console.log(data))
+  .catch((error) => console.log(error));
+  ```
+
+  ```js
+  // index.js
+  const fs = require("node:fs/promises");
+  async function fileRead() {
+      try {
+          const content = await fs.readFile("./file.txt", "utf-8")
+          console.log(content);
+      }
+      catch(error) {
+          console.log(error);
+      }
+      
+  }
+  fileRead(); // call async module or directly use 'await' statement when inside '.mjs' module file.
+  ```
+
 ## Glossary
 - JavaScript
 - ECMAScript

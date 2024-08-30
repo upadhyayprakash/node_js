@@ -110,6 +110,10 @@ emitter.on("order-pizza", (size) => { // event handler
 emitter.emit("order-pizza", "large", "mushroom"); // dispatching event
 */
 
+/**
+ * Custom Module with EventEmitter
+ */
+/*
 const PizzaShop = require("./pizza-shop");
 const DrinkMachine = require("./drink-machine");
 
@@ -123,3 +127,74 @@ pizzaShop.on("order", (size, topping) => {
 
 pizzaShop.order("large", "mushroom");
 pizzaShop.displayOrderNumber();
+*/
+
+/**
+ * Buffer
+ */
+/*
+const buffer = new Buffer.from("Prakash");
+
+console.log(buffer.toJSON()); // UTF-8 encoding
+console.log(buffer.toString());
+console.log(buffer);
+*/
+
+/**
+ * 'fs' module (Callback Based)
+ */
+/*
+const fs = require("node:fs");
+console.log('first');
+const contents = fs.readFileSync("./file.txt", "utf-8");
+console.log('Sync Read: ', contents);
+console.log('second');
+fs.readFile("./file.txt", "utf-8", (error, data) => { // 'error-first' callback fn
+    if(error)
+        console.log(error);
+    else
+        console.log('Async Read: ', data);
+})
+console.log('third'); // will be executed before printing Async 'readFile()'
+fs.writeFileSync("./greet.txt", "Hello Node.js");
+console.log("Sync: Created successfully!");
+fs.writeFile("./greet.txt", "\nHello Node.js Async", {flag: "a"}, (error) => {
+    if(error)
+        console.log(error);
+    else
+        console.log("Async: Created successfully!");
+});
+*/
+
+/**
+ * Promise() Based file reading
+ */
+/*
+const fs = require("node:fs/promises");
+console.log("first");
+fs.readFile("./file.txt", "utf-8")
+.then((data) => console.log(data))
+.catch((error) => console.log(error));
+console.log("second"); // printed before file content, as 'readFile()' is asynchronous
+*/
+
+/**
+ * Async/Await Based file reading
+ */
+/*
+const fs = require("node:fs/promises");
+console.log("first");
+async function fileRead() {
+    try {
+        const content = await fs.readFile("./file.txt", "utf-8")
+        console.log(content);
+    }
+    catch(error) {
+        console.log(error);
+    }
+    
+}
+console.log("second"); // printed before file content, as 'readFile()' is asynchronous
+fileRead();
+*/
+
