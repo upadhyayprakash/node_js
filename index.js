@@ -200,12 +200,15 @@ fileRead();
 /**
  * Streams in 'fs' module
  */
+
+/*
 const fs = require("node:fs");
 const readStream = fs.createReadStream("./file.txt", {
   encoding: "utf-8",
   highWaterMark: 2,
 });
 const writeStream = fs.createWriteStream("./file2.txt");
+*/
 
 /**
  * Using 'data' event
@@ -225,3 +228,126 @@ readStream.on("data", async (chunk) => {
 /*
 readStream.pipe(writeStream);
 */
+
+/**
+ * 'http' module
+ */
+/*
+const http = require("node:http");
+const PORT = 3001;
+const server = http.createServer((req, res) => { // callback listener
+    const superHero = {
+        firstName: "Bruce",
+        lastName: "Wayne"
+    }
+    res.writeHead(200, {"Content-Type": "application/json"});
+    res.end(JSON.stringify(superHero));
+});
+server.listen(PORT, () => console.log(`Server running on Port: ${PORT}`));
+*/
+
+/*
+const http = require("node:http");
+const fs = require("node:fs");
+const PORT = 3001;
+const server = http.createServer((req, res) => { // callback listener
+    res.writeHead(200, {"Content-Type": "text/html"});
+    const name = "Prakash";
+    // Using 'fs' module
+    let html = fs.readFileSync("./index.html", "utf-8")
+    html = html.replace("{{name}}", name)
+    res.end(html);
+
+    // Using streams
+    // fs.createReadStream(__dirname + "/index.html").pipe(res);
+});
+*/
+
+/**
+ * HTTP Route handling
+ */
+/*
+const http = require("node:http");
+const fs = require("node:fs");
+const PORT = 3001;
+const server = http.createServer((req, res) => { // callback listener
+    const url = req.url;
+    switch(url) {
+        case "/":
+            res.writeHead(200, {"Content-Type": "text/plain"});
+            res.end("Home Page");
+            break;
+        case "/about":
+            res.writeHead(200, {"Content-Type": "text/plain"});
+            res.end("About Page");
+            break;
+        case "/api":
+            res.writeHead(200, {"Content-Type": "application/json"});
+            res.end(JSON.stringify({
+                firstName: "Prakash",
+                lastName: "Upadhyay",
+            }));
+            break;
+        default:
+            res.writeHead(400);
+            res.end("Resource not found!")
+    }
+})
+server.listen(PORT, () => console.log(`Server running on Port: ${PORT}`));
+*/
+
+/**
+ * Thread Pool
+ */
+/*
+const fs = require("node:fs");
+console.log('first');
+fs.readFile("./file.txt", "utf-8", (error, data) => { // 'error-first' callback fn
+    if(error)
+        console.log(error);
+    else
+        console.log('Async Read: ', data);
+})
+console.log('last'); // will be executed before printing Async 'readFile()'
+*/
+
+/**
+ * Async demo using `crypto` module
+ */
+// Sync call: 'crypto' module
+/*
+const crypto = require("node:crypto");
+const start = Date.now();
+crypto.pbkdf2Sync("Password123", "salt", 100000, 512, "sha512");
+console.log("Hash: ", Date.now() - start);
+*/
+
+// Async call: 'crypto' module
+/*
+const crypto = require("node:crypto");
+process.env.UV_THREADPOOL_SIZE = 6;
+const MAX_ITERATIONS = 6;
+const start = Date.now();
+for(let i = 0; i < MAX_ITERATIONS; i++) {
+    crypto.pbkdf2("Password123", "salt", 100000, 512, "sha512", () => {
+        console.log(`Hash: ${i+1}`, Date.now() - start);
+    });
+}
+*/
+
+// Async call: 'https' module
+/*
+const https = require("node:https");
+const MAX_ITERATIONS = 16;
+const start = Date.now();
+for(let i = 0; i < MAX_ITERATIONS; i++) {
+    https.request("https://google.com", (res) => {
+        res.on("data", () => {});
+        res.on("end", () => {
+            console.log(`Request: ${i+1}`, Date.now() - start);
+        });
+    })
+    .end();
+}
+*/
+
